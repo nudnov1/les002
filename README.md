@@ -1,4 +1,4 @@
-# 1  Create box "mylinux"
+# Step 1 - Create box "mylinux". 
 # 2  CentOS/7
 # 3  Add 4 disks. "sdb", "sdc', "sdd", "sde"
 		NAME      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
