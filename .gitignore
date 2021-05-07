@@ -1,2 +1,3 @@
 
 *.vdi
+.vagrant/machines/mylinux/virtualbox/private_key
