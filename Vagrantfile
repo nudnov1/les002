@@ -2,28 +2,28 @@
 # vim: set ft=ruby :
 
 MACHINES = {
-  :mytestvm => {
+  :mylinux => {
         :box_name => "centos/7",
         :ip_addr => '192.168.11.101',
 	:disks => {
 		:sata1 => {
 			:dfile => './sata1.vdi',
-			:size => 250,
+			:size => 500,
 			:port => 1
 		},
 		:sata2 => {
                         :dfile => './sata2.vdi',
-                        :size => 250, # MB
+                        :size => 500, # Megabytes
 			:port => 2
 		},
                 :sata3 => {
                         :dfile => './sata3.vdi',
-                        :size => 250, # MB
+                        :size => 500,
                         :port => 3
                 },
                 :sata4 => {
                         :dfile => './sata4.vdi',
-                        :size => 250, # MB
+                        :size => 500, # Megabytes
                         :port => 4
                 }
 
@@ -37,8 +37,7 @@ Vagrant.configure("2") do |config|
 
   MACHINES.each do |boxname, boxconfig|
 
-      config.vm.provision "shell", path: "mdadm-create.sh"
-	  config.vm.define boxname do |box|
+      config.vm.define boxname do |box|
 
           box.vm.box = boxconfig[:box_name]
           box.vm.host_name = boxname.to_s
@@ -68,8 +67,13 @@ Vagrant.configure("2") do |config|
 	      mkdir -p ~root/.ssh
               cp ~vagrant/.ssh/auth* ~root/.ssh
 	      yum install -y mdadm smartmontools hdparm gdisk
+		  sudo su
+		  mdadm --create --verbose /dev/md1 --level=1 --raid-devices=2 --metadata=0.90 /dev/sd[b-c]
+          mdadm --add /dev/md1 /dev/sdd
+		  DEVICE='/dev/md1'
+		  for i in {1..5} ; do  sgdisk -n ${i}:0:+1M $DEVICE ; done
   	  SHELL
-
+      
       end
   end
 end
