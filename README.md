@@ -1,6 +1,6 @@
-# Step 1 - Create box "mylinux". 
+# Step 1 - Create new virtual machine (Virtualbox). 
 # 2  CentOS/7
-# 3  Add 4 disks. "sdb", "sdc', "sdd", "sde"
+# 2  Add 4 disks. "sdb", "sdc', "sdd", "sde"
 		NAME      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
 		sda         8:0    0   40G  0 disk
 		└─sda1      8:1    0   40G  0 part  /
