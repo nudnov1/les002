@@ -1,6 +1,6 @@
 # Step 1 - Create new virtual machine (Virtualbox). 
-# 2  CentOS/7
-# 2  Add 4 disks. "sdb", "sdc', "sdd", "sde"
+# Step 2 - Add 4 disks. "sdb", "sdc', "sdd", "sde"
+
 		NAME      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
 		sda         8:0    0   40G  0 disk
 		└─sda1      8:1    0   40G  0 part  /
@@ -9,7 +9,7 @@
 		sdd         8:48   0  500M  0 disk
 		sde         8:64   0  500M  0 disk
 
-# 4  Create RAID1 with name md1, use disks: "sdb" and "sdc" 
+# Step 3 - Create RAID1 with name md1, use disks: "sdb" and "sdc" 
 		NAME      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
 		sda         8:0    0   40G  0 disk
 		└─sda1      8:1    0   40G  0 part  /
@@ -35,7 +35,7 @@
 		  ├─md1p4 259:3    0    1M  0 md
 		  └─md1p5 259:4    0    1M  0 md
 		sde         8:64   0  500M  0 disk
-# 5  Add disk "sdd" to the RAID as spare
+# Step 4 - Add disk "sdd" to the RAID as spare
 		mdadm --detail /dev/md1
 		/dev/md1:
 				   Version : 0.90
@@ -66,7 +66,7 @@
 
 			   2       8       48        -      spare   /dev/sdd
 
-#     Create new 5 partitions by sgdisk script:
+# Step 5 - Create 5 new partitions by sgdisk script:
 	DEVICE='/dev/md1'
 	for i in {1..5} ; do  sgdisk -n ${i}:0:+1M $DEVICE ; done
 
