@@ -37,7 +37,8 @@ Vagrant.configure("2") do |config|
 
   MACHINES.each do |boxname, boxconfig|
 
-      config.vm.define boxname do |box|
+      config.vm.provision "shell", path: "mdadm-create.sh"
+	  config.vm.define boxname do |box|
 
           box.vm.box = boxconfig[:box_name]
           box.vm.host_name = boxname.to_s
@@ -67,8 +68,6 @@ Vagrant.configure("2") do |config|
 	      mkdir -p ~root/.ssh
               cp ~vagrant/.ssh/auth* ~root/.ssh
 	      yum install -y mdadm smartmontools hdparm gdisk
-              mdadm --create /dev/md/raid1_tst --level=1 --raid-device=2 /dev/sdb /dev/sdc
-              mdadm --add /dev/md/raid1_tst /dev/sdd
   	  SHELL
 
       end
