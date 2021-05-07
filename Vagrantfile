@@ -67,6 +67,8 @@ Vagrant.configure("2") do |config|
 	      mkdir -p ~root/.ssh
               cp ~vagrant/.ssh/auth* ~root/.ssh
 	      yum install -y mdadm smartmontools hdparm gdisk
+              mdadm --create /dev/md/raid1_tst --level=1 --raid-device=2 /dev/sdb /dev/sdc
+              mdadm --add /dev/md/raid1_tst /dev/sdd
   	  SHELL
 
       end
